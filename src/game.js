@@ -1,3 +1,4 @@
+var gs;
 define([
     'phaser', 'map', 'entity', 'input', 'settings'
 ], function (Phaser, Map, Entity, input, settings) { 
@@ -5,11 +6,14 @@ define([
 
     var Game = {
         create: function() {
-            Map.makeMap(this.game, this.onMapMade.bind(this), 'tileset');
+            gs = this;
 
+            // World
+            Map.makeMap(this.game, this.onMapMade.bind(this), 'tileset');
             this.world.setBounds(0, 0,
                                  settings.mapWidth * settings.tileSize,
                                  settings.mapHeight * settings.tileSize);
+
         },
         onMapMade: function(map) {
             // console.log(map);
@@ -26,7 +30,8 @@ define([
             this.player = player;
         },
         update: function() {
-            input.update();
+            input.update(this);
+
         }
         
     };

@@ -13,7 +13,6 @@ define([
         create: function() {
             this.stage.backgroundColor = "#4488AA";
             this.state.start('Game');
-            console.log("Game started!");
         }
     };
     
