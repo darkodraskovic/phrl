@@ -77,25 +77,11 @@ define([
                     player.move(1,0);
                 }
                 this.turn = false;
+
             }
             
             this.game.input.keyboard.clearCaptures();
         }
-
-
-        // left: function(key, entity) {
-        //     entity.move(-1, 0);
-        // },
-        // right: function(key, entity) {
-        //     entity.move(1, 0);
-        // },
-        // up: function(key, entity) {
-        //     entity.move(0, -1);
-        // },
-        // down: function(key, entity) {
-        //     entity.move(0, 1);
-        // },
-        
     };
     
     return input;

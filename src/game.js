@@ -26,12 +26,13 @@ define([
             var player = new Entity(this.game, x, y, '@', map, group);
             
             input.set(this.game, player);
-            this.game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
+            // this.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
+            // this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
             this.player = player;
         },
         update: function() {
             input.update(this);
-
+            this.camera.focusOn(this.player);
         }
         
     };

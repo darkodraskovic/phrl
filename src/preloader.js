@@ -1,6 +1,6 @@
 define([
-    'phaser', 'map'
-], function (Phaser, Map) { 
+    'phaser', 'map', 'settings'
+], function (Phaser, Map, settings) { 
     'use strict';
 
     var Preloader = {
@@ -11,7 +11,7 @@ define([
             Map.makeTileset(this.game, 'tileset');
         },
         create: function() {
-            this.stage.backgroundColor = "#4488AA";
+            this.stage.backgroundColor = settings.backgroundColor;
             this.state.start('Game');
         }
     };

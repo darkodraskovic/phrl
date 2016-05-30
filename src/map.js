@@ -11,12 +11,26 @@ define([
 
             var tilesetRT = game.add.renderTexture(
                 tileChars.length * tileSize, tileSize, key, true);
+            
             for (var i = 0; i < tileChars.length; i++) {
                 tilesetRT.renderRawXY(
                     new Phaser.Text(
                         game, 0, 0, tileChars[i], style), tileSize*i, 0);                
             }
-            game.cache.addImage('tileset', null, tilesetRT.getImage());
+            game.cache.addImage(key + 'lit', null, tilesetRT.getImage());
+
+            var tsDim = new Phaser.Sprite(game, 0, 0, tilesetRT);            
+            var c = Phaser.Color.getRGB(tsDim.tint);
+            c.r *= settings.lightIntensity;
+            c.g *= settings.lightIntensity;
+            c.b *= settings.lightIntensity;
+            var hexC = Phaser.Color.getColor(c.r, c.g, c.b);
+            tsDim.tint = hexC;
+            
+            var ts = game.add.renderTexture(
+                tileChars.length * tileSize, tileSize, 'tmp', true);
+            ts.renderRawXY(tsDim, 0, 0);
+            game.cache.addImage(key + 'dim', null, ts.getImage());
         },
         makeMap: function(game, userCallback, key, name, width, height, tileSize) {
             name = name || '';
@@ -26,7 +40,9 @@ define([
             
             var tileMap = game.add.tilemap();
             tileMap.create(name, width, height, tileSize, tileSize);
-            tileMap.addTilesetImage(null, key);
+            var ts_lit = tileMap.addTilesetImage('lit', key + 'lit');
+            tileMap.addTilesetImage(
+                'dim', key + 'dim', tileSize, tileSize, 0, 0, ts_lit.total);
             
             var mapData = new ROT.Map.Digger(width, height);
             var callback = function(x, y, value) {
